@@ -44,8 +44,6 @@ BBFFBBFRLL: row 102, column 4, seat ID 820.
 ```
 As a sanity check, look through your list of boarding passes. What is the highest seat ID on a boarding pass?
 
-Your puzzle answer was 944.
-
 __--- Part Two ---__
 
 Ding! The "fasten seat belt" signs have turned on. Time to find your seat.
