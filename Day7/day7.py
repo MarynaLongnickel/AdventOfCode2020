@@ -4,16 +4,19 @@ from urllib.request import urlopen
 
 data = urlopen('https://raw.githubusercontent.com/MarynaLongnickel/AdventOfCode2020/main/Day7/day7.txt').read().decode().split('\n')[:-1]
 dic = {}
+dic2 = {}
 
 for d in data:
     d = d.split(' bags contain ')
     k = d[0]
     v = d[1].replace('s, ', '').replace('s.', '').replace(', ', '').split('bag')[:-1]
-    v = [x[2:-1] for x in v if x != 'no other ']
+    v = [x[:-1] for x in v if x != 'no other ']
     for i in v:
+        i = i[2:]
         if i not in dic.keys():
             dic[i] = []
         dic[i].append(k)
+    dic2[k] = v
 
 q = ['shiny gold']
 found = []
@@ -30,22 +33,8 @@ print(len(found))
 
 # ---------------------- PART 2 ------------------------
 
-dic = {}
-
-for d in data:
-    d = d.split(' bags contain ')
-    k = d[0]
-    v = d[1].replace('s, ', '').replace('s.', '').replace(', ', '').split('bag')[:-1]
-    v = [x[:-1] for x in v if x != 'no other ']
-    dic[k] = v
-
 def count_bags(b):
-    if len(dic[b[2:]]) > 0:
-        tot = 0
-        for i in dic[b[2:]]:
-            tot += int(i[0]) + int(i[0]) * count_bags(i)
-        return tot
-    else:
-        return 0
+    return sum([int(i[0]) + int(i[0]) * count_bags(i) for i in dic2[b[2:]]]) if len(dic2[b[2:]]) > 0 else 0
+
 
 print(count_bags('1 shiny gold'))
